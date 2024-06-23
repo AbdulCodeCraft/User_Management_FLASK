@@ -1,0 +1,25 @@
+<table class="table rounded">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NAME</th>
+        <th scope="col">AGE</th>
+        <th scope="col">CITY</th>
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in datas %}
+      <tr>
+        <td>{{data.ID}}</td>
+        <td>{{data.NAME}}</td>
+        <td>{{data.AGE}}</td>
+        <td>{{data.CITY}}</td>
+        <td><a href="" class="btn btn-outline-dark">Edit</a></td>
+        <td><a href="" class="btn btn-outline-dark">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+   
+  </table>
