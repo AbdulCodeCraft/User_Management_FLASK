@@ -35,6 +35,35 @@ def index():
     res = con.fetchall()
     return render_template('index.html',datas = res)
 
+# Edit user
+@app.route('/editUser/<int:id>', methods=['GET', 'POST'])
+def editUser(id):
+    con = mysql.connection.cursor()
+    if request.method == 'POST':
+        name = request.form['name']
+        age = request.form['age']
+        city = request.form['city']
+        sql = "UPDATE users SET NAME=%s, AGE=%s, CITY=%s WHERE ID=%s"
+        con.execute(sql, [name, age, city, id])
+        mysql.connection.commit()
+        con.close()
+        return redirect(url_for('index'))
+    sql = "SELECT * FROM users WHERE ID=%s"
+    con.execute(sql, [id])
+    res = con.fetchone()
+    con.close()
+    return render_template('editUser.html', user=res)
+
+# Delete user
+@app.route('/deleteUser/<int:id>')
+def deleteUser(id):
+    con = mysql.connection.cursor()
+    sql = "DELETE FROM users WHERE ID=%s"
+    con.execute(sql, [id])
+    mysql.connection.commit()
+    con.close()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, debug=True)
  
